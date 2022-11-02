@@ -1,0 +1,32 @@
+# import the modules
+# noinspection PyUnresolvedReferences
+import PIL
+import os
+# noinspection PyUnresolvedReferences
+from os import listdir
+from PIL import Image
+
+
+# get the path/directory
+def image_edit():
+	path1 = 'images/'
+
+	new_frmt = "JPEG"  # New format
+	new_dir = '/opt/icons/'
+	img_files = [f for f in os.listdir(path1) if f.startswith("ic_")]
+
+	# Iterate through images to perform change
+	for file in img_files:
+		# Open images
+		src_img = Image.open(path1 + file)
+
+		# Rotate & resize image:
+		new_img = src_img.rotate(-90).resize((128, 128))
+		# NOTE: Now we have to convert images to RGB to avoid error:
+		new_img = new_img.convert("RGB")
+
+		# Now save new output file:
+		new_img.save(new_dir + file, new_frmt)
+
+
+image_edit()
